@@ -4,11 +4,12 @@ const { layers, width, height } = require("./assets/config");
 const { createCanvas, loadImage } = require("canvas");
 const canvas = createCanvas(width, height);
 const context = canvas.getContext("2d");
-const edition = myArgs.length > 0 ? Number(myArgs[0]) : 1;
+const editionSize = myArgs.length > 0 ? Number(myArgs[0]) : 1;
 var metadata = [];
 var attributes = [];
 var hash = [];
 var decodedHash = [];
+var dna = [];
 
 const saveLayer = async (_canvas, _edition) => {
   fs.writeFileSync(`./output/${_edition}.png`, _canvas.toBuffer("image/png"));
@@ -26,7 +27,7 @@ const addMetadata = (_edition) => {
   metadata.push(temp);
   attributes = [];
   hash = [];
-  decodedhash = [];
+  decodedHash = [];
 };
 
 const addAttributes = (_element, _layer) => {
@@ -45,6 +46,86 @@ const addAttributes = (_element, _layer) => {
 const drawLayer = async (_layer, _edition) => {
   let element =
     _layer.elements[Math.floor(Math.random() * _layer.elements.length)];
+
+  // logic for choosing element items:
+  if (_layer.id === 1) {
+    //background
+  }
+  if (_layer.id === 2) {
+    //weapons
+    const rareChance = Math.random();
+    if (rareChance >= 0.75) {
+      console.log("RARE WEAPON");
+      element =
+        _layer.elements[
+          Math.floor(1 + Math.random() * (_layer.elements.length - 1))
+        ];
+    } else {
+      element = _layer.elements[0];
+    }
+  }
+  if (_layer.id === 3) {
+    //wings
+    const rareChance = Math.random();
+    if (rareChance >= 0.75) {
+      console.log("RARE WINGS");
+      element =
+        _layer.elements[
+          Math.floor(1 + Math.random() * (_layer.elements.length - 1))
+        ];
+    } else {
+      element = _layer.elements[0];
+    }
+  }
+  if (_layer.id === 4) {
+    //shell
+  }
+  if (_layer.id === 5) {
+    //skin color
+  }
+  if (_layer.id === 6) {
+    //eye color
+  }
+  if (_layer.id === 7) {
+    //hat
+    const rareChance = Math.random();
+
+    if (rareChance >= 0.75) {
+      console.log(`RARE HAT`);
+      element =
+        _layer.elements[
+          Math.floor(1 + Math.random() * (_layer.elements.length - 1))
+        ];
+    } else {
+      element = _layer.elements[0];
+    }
+  }
+  if (_layer.id === 8) {
+    //accessories
+    const rareChance = Math.random();
+    if (rareChance >= 0.75) {
+      console.log(`RARE ACCESSORIES`);
+      element =
+        _layer.elements[
+          Math.floor(1 + Math.random() * (_layer.elements.length - 1))
+        ];
+    } else {
+      element = _layer.elements[0];
+    }
+  }
+  if (_layer.id === 9) {
+    //handhelds
+    const rareChance = Math.random();
+    if (rareChance >= 0.75) {
+      console.log(`RARE HANDHELD`);
+      element =
+        _layer.elements[
+          Math.floor(1 + Math.random() * (_layer.elements.length - 1))
+        ];
+    } else {
+      element = _layer.elements[0];
+    }
+  }
   addAttributes(element, _layer);
   const drawnImage = await loadImage(`${_layer.location}/${element.fileName}`);
   context.drawImage(
@@ -54,34 +135,26 @@ const drawLayer = async (_layer, _edition) => {
     _layer.size.width,
     _layer.size.height
   );
-  console.log(_layer.location);
-  console.log(element.fileName);
-  if (
-    (element.fileName !== "none.png" &&
-      _layer.location ===
-        "/mnt/c/Users/Evan/documents/coding/cardano-nft-project/assets/back-weapons") ||
-    _layer.location ===
-      "/mnt/c/Users/Evan/documents/coding/cardano-nft-project/assets/wing-type" ||
-    _layer.location ===
-      "/mnt/c/Users/Evan/documents/coding/cardano-nft-project/assets/hats" ||
-    _layer.location ===
-      "/mnt/c/Users/Evan/documents/coding/cardano-nft-project/assets/top-layer-accessories"
-  ) {
-    fs.unlink(`${_layer.location}/${element.fileName}`, (err) => {
-      if (err) throw err;
-    });
-  }
+
   saveLayer(canvas, _edition);
 };
 
-for (let i = 1; i <= edition; i++) {
-  layers.forEach((layer) => {
-    drawLayer(layer, i);
-  });
-  addMetadata(i);
-  console.log(`Creating edition ${i}`);
-}
+const createCollection = async () => {
+  let editionCount = 1;
 
+  while (editionCount <= editionSize) {
+    layers.forEach((layer) => {
+      drawLayer(layer, editionCount);
+    });
+    addMetadata(editionCount);
+    console.log(`Creating edition ${editionCount}`);
+    editionCount++;
+  }
+};
+
+createCollection();
+
+//writes the metaData
 fs.readFile("./output/_metadata.json", (err, data) => {
   if (err) throw err;
   fs.writeFileSync("./output/_metadata.json", JSON.stringify(metadata));

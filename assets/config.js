@@ -60,7 +60,7 @@ const layers = [
     name: "Wings",
     location: `${dir}/wing-type`,
     elements: getElements(`${dir}/wing-type`),
-    position: { x: 0, y: 0 },
+    position: { x: -10, y: 0 },
     size: { width, height },
   },
   {
