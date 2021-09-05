@@ -1,0 +1,14 @@
+{
+  "name": "cardano-nft-project",
+  "version": "1.0.0",
+  "description": "NFT Lil Turts",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "author": "Evan Raftis",
+  "license": "ISC",
+  "dependencies": {
+    "canvas": "^2.8.0"
+  }
+}
