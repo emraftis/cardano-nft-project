@@ -68,7 +68,7 @@ const layers = [
     name: "Shell",
     location: `${dir}/shell-type`,
     elements: getElements(`${dir}/shell-type`),
-    position: { x: 0, y: 10 },
+    position: { x: -5, y: 20 },
     size: { width, height },
   },
   {

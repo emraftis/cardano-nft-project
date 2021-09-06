@@ -8,31 +8,26 @@ const editionSize = myArgs.length > 0 ? Number(myArgs[0]) : 1;
 var metadata = [];
 var attributes = [];
 var hash = [];
-var decodedHash = [];
-var dna = [];
+var totalTurtIds = [];
 
 const saveLayer = async (_canvas, _edition) => {
   fs.writeFileSync(`./output/${_edition}.png`, _canvas.toBuffer("image/png"));
 };
 
 const addMetadata = (_edition) => {
-  let timestamp = Date.now();
   let temp = {
     hash: hash.join(""),
-    decodedHash: decodedHash,
     edition: _edition,
-    date: timestamp,
     attributes: attributes,
   };
   metadata.push(temp);
   attributes = [];
+  totalTurtIds.push(hash);
   hash = [];
-  decodedHash = [];
 };
 
 const addAttributes = (_element, _layer) => {
   let temp = {
-    id: _element.id,
     layer: _layer.name,
     name: _element.name,
     rarity: _element.rarity,
@@ -40,7 +35,6 @@ const addAttributes = (_element, _layer) => {
   attributes.push(temp);
   hash.push(_layer.id);
   hash.push(_element.id);
-  decodedHash.push({ [_layer.id]: _element.id });
 };
 
 const drawLayer = async (_layer, _edition) => {
@@ -54,7 +48,7 @@ const drawLayer = async (_layer, _edition) => {
   if (_layer.id === 2) {
     //weapons
     const rareChance = Math.random();
-    if (rareChance >= 0.75) {
+    if (rareChance >= 0.8) {
       console.log("RARE WEAPON");
       element =
         _layer.elements[
@@ -67,7 +61,7 @@ const drawLayer = async (_layer, _edition) => {
   if (_layer.id === 3) {
     //wings
     const rareChance = Math.random();
-    if (rareChance >= 0.75) {
+    if (rareChance >= 0.9) {
       console.log("RARE WINGS");
       element =
         _layer.elements[
@@ -79,6 +73,16 @@ const drawLayer = async (_layer, _edition) => {
   }
   if (_layer.id === 4) {
     //shell
+    const rareChance = Math.random();
+    if (rareChance >= 0.5) {
+      console.log("RARE SHELL");
+      element =
+        _layer.elements[
+          Math.floor(Math.random() * (_layer.elements.length - 1))
+        ];
+    } else {
+      element = _layer.elements[3];
+    }
   }
   if (_layer.id === 5) {
     //skin color
@@ -89,8 +93,7 @@ const drawLayer = async (_layer, _edition) => {
   if (_layer.id === 7) {
     //hat
     const rareChance = Math.random();
-
-    if (rareChance >= 0.75) {
+    if (rareChance >= 0.5) {
       console.log(`RARE HAT`);
       element =
         _layer.elements[
@@ -102,30 +105,11 @@ const drawLayer = async (_layer, _edition) => {
   }
   if (_layer.id === 8) {
     //accessories
-    const rareChance = Math.random();
-    if (rareChance >= 0.75) {
-      console.log(`RARE ACCESSORIES`);
-      element =
-        _layer.elements[
-          Math.floor(1 + Math.random() * (_layer.elements.length - 1))
-        ];
-    } else {
-      element = _layer.elements[0];
-    }
   }
   if (_layer.id === 9) {
     //handhelds
-    const rareChance = Math.random();
-    if (rareChance >= 0.75) {
-      console.log(`RARE HANDHELD`);
-      element =
-        _layer.elements[
-          Math.floor(1 + Math.random() * (_layer.elements.length - 1))
-        ];
-    } else {
-      element = _layer.elements[0];
-    }
   }
+
   addAttributes(element, _layer);
   const drawnImage = await loadImage(`${_layer.location}/${element.fileName}`);
   context.drawImage(
@@ -135,7 +119,6 @@ const drawLayer = async (_layer, _edition) => {
     _layer.size.width,
     _layer.size.height
   );
-
   saveLayer(canvas, _edition);
 };
 
