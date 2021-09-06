@@ -23,13 +23,13 @@ const addMetadata = (_edition) => {
       description: description,
       image: image,
       background: attributes[0].name,
-      skin: attributes[1].name,
-      eyes: attributes[2].name,
-      head: attributes[3].name,
-      shell: attributes[4].name,
-      handheld: attributes[5].name,
-      weapons: attributes[6].name,
-      wings: attributes[7].name,
+      skin: attributes[4].name,
+      eyes: attributes[5].name,
+      head: attributes[6].name,
+      shell: attributes[3].name,
+      handheld: attributes[7].name,
+      weapons: attributes[1].name,
+      wings: attributes[2].name,
     },
   };
   metadata.push(temp);
@@ -82,10 +82,14 @@ const drawLayer = async (_layer, _edition) => {
     //shell
     const rareChance = Math.random();
     if (rareChance >= 0.9) {
-      console.log("RARE WINGS");
+      console.log("SUPER RARE SHELL");
+      element = _layer.elements[2];
+    }
+    if (rareChance < 0.9 && rareChance > 0.5) {
+      console.log("RARE SHELL");
       element =
         _layer.elements[
-          Math.floor(Math.random() * (_layer.elements.length - 1))
+          Math.floor(Math.random() * (_layer.elements.length - 2))
         ];
     } else {
       element = _layer.elements[3];
@@ -100,11 +104,14 @@ const drawLayer = async (_layer, _edition) => {
   if (_layer.id === 7) {
     //hat
     const rareChance = Math.random();
+    if (rareChance >= 0.925) {
+      element = _layer.elements[3];
+    }
     if (rareChance >= 0.5) {
       console.log(`RARE HAT`);
       element =
         _layer.elements[
-          Math.floor(Math.random() * (_layer.elements.length - 1))
+          Math.floor(Math.random() * (_layer.elements.length - 2))
         ];
     } else {
       element = _layer.elements[4];
@@ -115,16 +122,6 @@ const drawLayer = async (_layer, _edition) => {
   //   }
   if (_layer.id === 8) {
     //handhelds
-    const rareChance = Math.random();
-    if (rareChance >= 0.5) {
-      console.log(`RARE HANDHELD`);
-      element =
-        _layer.elements[
-          Math.floor(Math.random() * (_layer.elements.length - 1))
-        ];
-    } else {
-      element = _layer.elements[2];
-    }
   }
 
   addAttributes(element, _layer);
