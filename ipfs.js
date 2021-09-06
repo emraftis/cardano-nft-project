@@ -5,7 +5,7 @@ const IPFS = new BlockFrostIPFS({
 });
 
 const loadtoIPFS = async (num) => {
-  for (let i = 1; i <= num; i++) {
+  for (let i = num; i <= num; i++) {
     try {
       const added = await IPFS.add(`${__dirname}/output/${i}.png`);
       console.log("added", added);
@@ -18,4 +18,4 @@ const loadtoIPFS = async (num) => {
   }
 };
 
-loadtoIPFS(1);
+loadtoIPFS(86);

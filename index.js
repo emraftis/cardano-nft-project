@@ -55,7 +55,7 @@ const drawLayer = async (_layer, _edition) => {
   if (_layer.id === 2) {
     //weapons
     const rareChance = Math.random();
-    if (rareChance >= 0.8) {
+    if (rareChance >= 0.55) {
       console.log("RARE WEAPON");
       element =
         _layer.elements[
@@ -68,7 +68,7 @@ const drawLayer = async (_layer, _edition) => {
   if (_layer.id === 3) {
     //wings
     const rareChance = Math.random();
-    if (rareChance >= 0.9) {
+    if (rareChance >= 0.5) {
       console.log("RARE WINGS");
       element =
         _layer.elements[
@@ -80,20 +80,6 @@ const drawLayer = async (_layer, _edition) => {
   }
   if (_layer.id === 4) {
     //shell
-    const rareChance = Math.random();
-    if (rareChance >= 0.9) {
-      console.log("SUPER RARE SHELL");
-      element = _layer.elements[2];
-    }
-    if (rareChance < 0.9 && rareChance > 0.5) {
-      console.log("RARE SHELL");
-      element =
-        _layer.elements[
-          Math.floor(Math.random() * (_layer.elements.length - 2))
-        ];
-    } else {
-      element = _layer.elements[3];
-    }
   }
   if (_layer.id === 5) {
     //skin color
@@ -103,19 +89,6 @@ const drawLayer = async (_layer, _edition) => {
   }
   if (_layer.id === 7) {
     //hat
-    const rareChance = Math.random();
-    if (rareChance >= 0.925) {
-      element = _layer.elements[3];
-    }
-    if (rareChance >= 0.5) {
-      console.log(`RARE HAT`);
-      element =
-        _layer.elements[
-          Math.floor(Math.random() * (_layer.elements.length - 2))
-        ];
-    } else {
-      element = _layer.elements[4];
-    }
   }
   //   if (_layer.id === 8) {
   //     //accessories
