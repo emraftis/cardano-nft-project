@@ -3,10 +3,10 @@ const dir = __dirname;
 const width = 1000;
 const height = 1190;
 const rarity = [
-  { key: "", val: "normal" },
-  { key: "_r", val: "rare" },
-  { key: "_sr", val: "super rare" },
-  { key: "_ssr", val: "super super rare" },
+  { key: "", val: "" },
+  { key: "_r", val: "(rare)" },
+  { key: "_sr", val: "(super rare)" },
+  { key: "_ssr", val: "(super super rare)" },
 ];
 
 const addRarity = (_str) => {
@@ -41,7 +41,7 @@ const getElements = (path) => {
 const layers = [
   {
     id: 1,
-    name: "background",
+    name: "Background",
     location: `${dir}/backgrounds`,
     elements: getElements(`${dir}/backgrounds`),
     position: { x: 0, y: 0 },
@@ -89,22 +89,22 @@ const layers = [
   },
   {
     id: 7,
-    name: "Hat",
+    name: "Hat/Hair",
     location: `${dir}/hats`,
     elements: getElements(`${dir}/hats`),
     position: { x: -10, y: 0 },
     size: { width, height },
   },
+  //   {
+  //     id: 8,
+  //     name: "Accessories",
+  //     location: `${dir}/top-layer-accessories`,
+  //     elements: getElements(`${dir}/top-layer-accessories`),
+  //     position: { x: 0, y: 0 },
+  //     size: { width, height },
+  //   },
   {
     id: 8,
-    name: "Accessories",
-    location: `${dir}/top-layer-accessories`,
-    elements: getElements(`${dir}/top-layer-accessories`),
-    position: { x: 0, y: 0 },
-    size: { width, height },
-  },
-  {
-    id: 9,
     name: "Handheld",
     location: `${dir}/handheld`,
     elements: getElements(`${dir}/handheld`),
