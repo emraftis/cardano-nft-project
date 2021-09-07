@@ -11,6 +11,7 @@
   "dependencies": {
     "@blockfrost/blockfrost-js": "^1.2.0",
     "canvas": "^2.8.0",
+    "cardanocli-js": "^3.1.2",
     "dotenv": "^10.0.0"
   }
 }
